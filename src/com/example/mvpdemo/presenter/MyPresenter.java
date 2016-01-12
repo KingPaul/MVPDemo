@@ -12,7 +12,6 @@ public class MyPresenter {
 	private IModel model;
 	private IView view;
 	private Handler mHandler = new Handler();
-	private String content;
 
 	public MyPresenter(IView view) {
 		super();
@@ -21,19 +20,20 @@ public class MyPresenter {
 	}
 
 	public void printWeb(String url) {
-		content = model.getWeb(url, new IListener() {
+		model.getWeb(url, new IListener() {
 			@Override
-			public void callBack() {
+			public void callBack(final String result) {
 				// TODO Auto-generated method stub
 				mHandler.post(new Runnable() {
 					@Override
 					public void run() {
 						// TODO Auto-generated method stub
-						view.setText(content);
+						//update view
+						view.setText(result);
 					}
 				});
 			}
+
 		});
-		// view
 	}
 }

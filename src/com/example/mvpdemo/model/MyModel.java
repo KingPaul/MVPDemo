@@ -13,8 +13,8 @@ public class MyModel implements IModel {
 	private String result = "";
 
 	@Override
-	public String getWeb(final String strurl, IListener listener) {
-//		String result = "";
+	public void getWeb(final String strurl, final IListener listener) {
+		result = "";
 
 		new Thread() {
 			public void run() {
@@ -35,14 +35,19 @@ public class MyModel implements IModel {
 						System.out.println(line);
 						result = result + line;
 					}
+					listener.callBack(result);
 				} catch (IOException e) {
 					// TODO Auto-generated catch block
 					e.printStackTrace();
 				}
 			};
 		}.start();
+	}
 
-		return result;
+	@Override
+	public String getResult() {
+		// TODO Auto-generated method stub
+		return this.result;
 	}
 
 }
